@@ -1,9 +1,7 @@
 var geocoder = new google.maps.Geocoder();
 
-//array to hold the geo address
 var geoAddress = [];
 
-//function framework
 googleMapService = {
 	initNavigateMap: function (mapID, panelDirectionID, startLatitude, startLongitude, endLatitude, endLongitude) {
 		var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -15,18 +13,15 @@ googleMapService = {
 		  center: {lat: startLatitude, lng: startLongitude}
 		}); 
 		
-		//clear the direction panel
 		$("#" + panelDirectionID).html("");
 		directionsDisplay.setMap(map);
 		directionsDisplay.setPanel(document.getElementById(panelDirectionID));
 
-		//prepare the latitude and longitude data
 		start = startLatitude + ", " + startLongitude;
 		end = endLatitude + ", " + endLongitude;
 		googleMapService.calculateAndDisplayRoute(directionsService, directionsDisplay, start, end);
 	},
 
-	//function to get the driving route
 	calculateAndDisplayRoute: function (directionsService, directionsDisplay, start, end) {
 		directionsService.route({
 		  origin: start,
@@ -42,12 +37,9 @@ googleMapService = {
 	},
 
 	
-	//function to get geolocation of both addresses.
 	getGeolocationData: function(current_lat, current_long, destination_lat, destination_long){
-		console.log("Current Location : "+current_lat+'(lat) |'+current_long+'(long)');
-			console.log("Destination Location : "+destination_lat+'(lat) |'+destination_long+'(long)');
-		//if($("#txtStartingPoint").val() != "" && $("#txtDestinationPoint").val() != ""){
-			geoAddress = [];
+
+		geoAddress = [];
 
 			var geoData = {
 					latitude: current_lat,
@@ -63,9 +55,7 @@ googleMapService = {
 			geoAddress.push(geoDestination);
 
 			googleMapService.initNavigateMap("map2", "panel-direction", geoAddress[0].latitude, geoAddress[0].longitude, geoAddress[1].latitude, geoAddress[1].longitude);
-
 			
 	}
-	
 	
 }
